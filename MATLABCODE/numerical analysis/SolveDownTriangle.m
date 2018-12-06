@@ -7,7 +7,7 @@ N = size(A);
 n = N(1);
 for i=1:n
     if (i>1)
-        s = A(i,1:i(i-1))*x(1:(i-1),1);
+        s = A(i,1:(i-1))*x(1:(i-1),1);
     else
         s = 0;
     end
