@@ -104,6 +104,7 @@ end
 Pos=find(L_best==min(L_best)); %找到最佳路径（非0为真）
 Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
 Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
+fprintf('蚁群算法得到的最短距离:%.2f\n',L_best);
 figure;
 %subplot(1,2,1);            %绘制第一个子图形
 DrawRoute(C,Shortest_Route)     %画路线图的子函数
@@ -130,4 +131,5 @@ for ii=2:N
     plot([C(R(ii-1),1),C(R(ii),1)],[C(R(ii-1),2),C(R(ii),2)],'g')
     hold on
 end
+
 title('旅行商问题优化结果 ')
