@@ -1,6 +1,6 @@
 %смоД1.jpg
 %смоД2.png
-A = imread('смоД1.jpg');
+A = imread('смоД2.png');
 I = imresize(A,[512,NaN]);
 imshow(I);
 %х║╩р╤х
@@ -39,6 +39,6 @@ x = centersBright(:,1);
 y = centersBright(:,2);
 save('border_1.mat','centersBright','x','y');
 %╣ВсцбЛрокЦ╥╗
-% ACATSP(centersBright,100,75,1,5,0.2,10);
+ACATSP(centersBright,100,75,1,5,0.2,10);
 
 
