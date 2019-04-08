@@ -1,4 +1,7 @@
 clear;
+%同心圆
+%利用外接
+%形状方向
 i = imread('形状识别.png');
 C = im2bw(i,0.52); %阈值
 imshow(C);
@@ -11,12 +14,6 @@ a = max(max(D)); %连通区域个数 为 7
 d = zeros(1,a); %1行8列的零向量
 %e(1) = 0;
 
-% 求各个连通区域的面积 第一个元素为背景的面积
-% for i = 1:m
-%     for j = i:n
-%         d(D(i,j)+1) = d(D(i,j)+1) + 1;
-%     end
-% end
 STATS=regionprops(D, 'all');
 for i=1 : num
 d(i)=STATS(i).Area; %计算各区域的面积。
