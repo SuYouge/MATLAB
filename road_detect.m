@@ -4,7 +4,7 @@ clear;
 I=imread('road2.jpg');
 subplot(2,2,1);
 imshow(I);
-Ihsv=rgb2hsv(I);
+Ihsv=rgb2hsv(I); %色调、饱和度、明度提取法
 subplot(2,2,2);
 imshow(Ihsv);
 Ivl=Ihsv(:,:,3);                    %提取v空间
