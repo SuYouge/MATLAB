@@ -1,34 +1,29 @@
-%MASK预处理
 clc;
 clear;
 peaks_num = 5;
 bias_all = 700;
 bias = 0;
-I=imread('test_2.jpg');
+I=imread('test_1.jpg');
+Ihsv=rgb2hsv(I); %色调、饱和度、明度提取法
+Iv=Ihsv(:,:,2);                    %提取饱和度空间
+Ivl = Iv(:, :, :);
+Iedge=edge(Ivl,'Canny');    %边沿检测
+% Iedge = imdilate(Iedge,ones(5)); %膨胀
+% %形态学 滤波 填孔 开操作过滤颗粒
+% Iedge = imfilter(Iedge, fspecial('gaussian',10,15), 'replicate', 'conv');
+% Iedge = bwfill(Iedge, 'holes');
+% SE = strel('square', 40);
+% Iedge = imopen(Iedge, SE);
+%新建窗口，绘图用
 figure (1)
 subplot(2,2,1);
 imshow(I);
-
-Ihsv=rgb2hsv(I); %色调、饱和度、明度提取法
 subplot(2,2,2);
 imshow(Ihsv);
-
-Iv=Ihsv(:,:,2);                    %提取饱和度空间
-Ivl = Iv(:, :, :);
 subplot(2,2,3);
 imshow(Ivl);
-
-Iedge=edge(Ivl,'Canny');    %边沿检测
-Iedge = imdilate(Iedge,ones(5)); %膨胀
 subplot(2,2,4);
-
-Iedge = imfilter(Iedge, fspecial('gaussian',10,15), 'replicate', 'conv');%形态学 滤波 
-Iedge = bwfill(Iedge, 'holes');
-SE = strel('square', 40);
-Iedge = imopen(Iedge, SE);
-% Iedge = imdilate(Iedge,ones(3));
-imshow(Iedge);
-%新建窗口，绘图用
+imshow(Iedge);    
 figure (2)
 imshow(Iedge);
 hold on
@@ -45,15 +40,12 @@ lines=houghlines(Iedge,T1,R1,Peaks1,'FillGap',50,'MinLength',7);
     xy=[lines(k).point1;lines(k).point2];
     plot(xy(:,1),xy(:,2)+bias,'LineWidth',2,'Color','r');
  end
- 
  %右方直线检测与绘制
 [H2,T2,R2] = hough(Iedge,'Theta',-60:0.1:-20);
 Peaks2=houghpeaks(H2,peaks_num,'threshold',ceil(0.3*max(H2(:))));
 lines2=houghlines(Iedge,T2,R2,Peaks2,'FillGap',50,'MinLength',7);
-
 for k=1:length(lines2)
     xy1=[lines2(k).point1;lines2(k).point2];   
     plot(xy1(:,1),xy1(:,2)+bias,'LineWidth',2,'Color','b');
 end
-
 hold off
